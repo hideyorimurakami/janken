@@ -18,15 +18,15 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "round",nullable = true)
+	@Column(name = "round",nullable = false)
 	private int round;
 
-	@Column(name = "win",nullable = true)
+	@Column(name = "win",nullable = false)
 	private int win;
 
-	@Column(name = "lose",nullable = true)
+	@Column(name = "lose",nullable = false)
 	private int lose;
 
-	@Column(name = "draw",nullable = true)
+	@Column(name = "draw",nullable = false)
 	private int draw;
 }
