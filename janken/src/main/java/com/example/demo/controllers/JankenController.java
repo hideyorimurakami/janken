@@ -34,7 +34,7 @@ Hantei h ;
 	@PostMapping("/janken")
 	public String janken(@RequestParam String te,Model model,HttpSession session) {
 			String sessionId = session.getId();
-			if(sessionId.equals(u.getSessionId())) {
+			
 			int you = Integer.parseInt(te);
 			model.addAttribute("msg", h.judge(you));
 			model.addAttribute("cpu",h.getCpu());
@@ -49,9 +49,7 @@ Hantei h ;
 			model.addAttribute("draw",u.getDraw());
 			model.addAttribute("lose",u.getLose());
 			return "janken";
-			}else {
-				return "redirect:https://hidejanken.herokuapp.com/";;
-			}
+			
 
 	}
 
