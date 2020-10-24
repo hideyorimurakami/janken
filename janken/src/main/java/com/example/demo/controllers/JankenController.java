@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.models.Hantei;
-import com.example.demo.models.User;
-import com.example.demo.models.UserRepository;
+import com.example.demo.models.JankenUser;
+import com.example.demo.models.JankenUserRepository;
 
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 public class JankenController {
-private final UserRepository rep;
+private final JankenUserRepository rep;
 
-User u;
+JankenUser u;
 Hantei h ;
 	@GetMapping("/")
 	public String index(Model model) {
-		u = new User();
+		u = new JankenUser();
 		h = new Hantei();
 		return "janken";
 	}
@@ -37,7 +37,7 @@ Hantei h ;
 			u.setWin(h.getWin());
 			u.setLose(h.getLose());
 			u.setDraw(h.getDraw());
-			//rep.save(u);
+			rep.save(u);
 			model.addAttribute("id",u.getId());
 			model.addAttribute("win",u.getWin());
 			model.addAttribute("draw",u.getDraw());
