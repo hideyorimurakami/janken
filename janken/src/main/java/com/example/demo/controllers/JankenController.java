@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.models.Hantei;
@@ -13,19 +14,20 @@ import com.example.demo.models.UserRepository;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/")
 public class JankenController {
 private final UserRepository rep;
 
 User u;
 Hantei h ;
-	@GetMapping("/")
+	@GetMapping("/janken")
 	public String index(Model model) {
 		u = new User();
 		h = new Hantei();
 		return "janken";
 	}
 
-	@PostMapping("/")
+	@PostMapping("/janken")
 	public String janken(@RequestParam String te,Model model) {
 			int you = Integer.parseInt(te);
 			model.addAttribute("msg", h.judge(you));
@@ -40,7 +42,7 @@ Hantei h ;
 			model.addAttribute("win",u.getWin());
 			model.addAttribute("draw",u.getDraw());
 			model.addAttribute("lose",u.getLose());
-			return "/janken";
+			return "janken";
 	}
 
 
