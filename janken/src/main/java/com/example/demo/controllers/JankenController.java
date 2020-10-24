@@ -50,7 +50,7 @@ Hantei h ;
 			model.addAttribute("lose",u.getLose());
 			return "janken";
 			}else {
-				return "redirect:https://hidejanken.herokuapp.com/j";;
+				return "redirect:https://hidejanken.herokuapp.com/";;
 			}
 
 	}
