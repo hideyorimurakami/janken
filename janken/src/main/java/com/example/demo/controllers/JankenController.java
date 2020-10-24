@@ -37,7 +37,7 @@ Hantei h ;
 			u.setWin(h.getWin());
 			u.setLose(h.getLose());
 			u.setDraw(h.getDraw());
-			rep.save(u);
+			//rep.save(u);
 			model.addAttribute("id",u.getId());
 			model.addAttribute("win",u.getWin());
 			model.addAttribute("draw",u.getDraw());
