@@ -18,14 +18,14 @@ private final UserRepository rep;
 
 User u;
 Hantei h ;
-	@GetMapping("/janken")
+	@GetMapping("/")
 	public String index(Model model) {
 		u = new User();
 		h = new Hantei();
 		return "janken";
 	}
 
-	@PostMapping("/janken")
+	@PostMapping("/")
 	public String janken(@RequestParam String te,Model model) {
 			int you = Integer.parseInt(te);
 			model.addAttribute("msg", h.judge(you));
