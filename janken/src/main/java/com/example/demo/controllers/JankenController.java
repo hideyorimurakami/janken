@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +23,18 @@ private final JankenUserRepository rep;
 JankenUser u;
 Hantei h ;
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
+		String sessionId = session.getId();
 		u = new JankenUser();
+		u.setSessionId(sessionId);
 		h = new Hantei();
 		return "janken";
 	}
 
 	@PostMapping("/janken")
-	public String janken(@RequestParam String te,Model model) {
+	public String janken(@RequestParam String te,Model model,HttpSession session) {
+			String sessionId = session.getId();
+			if(sessionId.equals(u.getSessionId())) {
 			int you = Integer.parseInt(te);
 			model.addAttribute("msg", h.judge(you));
 			model.addAttribute("cpu",h.getCpu());
@@ -43,6 +49,10 @@ Hantei h ;
 			model.addAttribute("draw",u.getDraw());
 			model.addAttribute("lose",u.getLose());
 			return "janken";
+			}else {
+				return "janken";
+			}
+
 	}
 
 

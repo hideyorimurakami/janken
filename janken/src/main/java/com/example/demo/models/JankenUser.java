@@ -18,6 +18,9 @@ public class JankenUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "sessionId",nullable = false)
+	private String sessionId;
+
 	@Column(name = "round",nullable = false)
 	private int round;
 
