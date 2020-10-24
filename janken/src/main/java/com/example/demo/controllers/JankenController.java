@@ -20,7 +20,7 @@ private final UserRepository rep;
 
 User u;
 Hantei h ;
-	@GetMapping("/janken")
+	@GetMapping("/")
 	public String index(Model model) {
 		u = new User();
 		h = new Hantei();

@@ -1,8 +1,13 @@
 package com.example.demo.models;
 
+import org.springframework.stereotype.Service;
+
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
+@Service
 public class Hantei {
 	private int cpu;
 	private int you;
