@@ -5,53 +5,46 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.models.Hantei;
-import com.example.demo.models.JankenUser;
-import com.example.demo.models.JankenUserRepository;
+import com.example.demo.models.JankenRepository;
+import com.example.demo.models.Jankenuser;
 
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/")
 public class JankenController {
-private final JankenUserRepository rep;
 
-JankenUser u;
-Hantei h ;
+	private final JankenRepository rep;
+
 	@GetMapping("/")
-	public String index(Model model, HttpSession session) {
-		String sessionId = session.getId();
-		u = new JankenUser();
-		u.setSessionId(sessionId);
-		h = new Hantei();
+	public String index(Model model,HttpSession s, @ModelAttribute Jankenuser jankenuser,@ModelAttribute Hantei hantei) {
+		String sessionId = s.getId();
+		jankenuser.setSessionId(sessionId);
+		rep.save(jankenuser);
+		s.setAttribute("user", jankenuser);
+		s.setAttribute("hantei", hantei);
+		model.addAttribute("msg","選んでください！");
 		return "janken";
 	}
 
 	@PostMapping("/janken")
-	public String janken(@RequestParam String te,Model model,HttpSession session) {
-			String sessionId = session.getId();
-			
-			int you = Integer.parseInt(te);
-			model.addAttribute("msg", h.judge(you));
-			model.addAttribute("cpu",h.getCpu());
-			model.addAttribute("you",h.getYou());
-			u.setRound(h.getRound());;
-			u.setWin(h.getWin());
-			u.setLose(h.getLose());
-			u.setDraw(h.getDraw());
-			rep.save(u);
-			model.addAttribute("id",u.getId());
-			model.addAttribute("win",u.getWin());
-			model.addAttribute("draw",u.getDraw());
-			model.addAttribute("lose",u.getLose());
-			return "janken";
-			
-
+	public String test(@RequestParam String te,HttpSession s,Model model) {
+		Jankenuser jankenuser = (Jankenuser)s.getAttribute("user");
+		Hantei hantei = (Hantei)s.getAttribute("hantei");
+		int you = Integer.parseInt(te);
+		model.addAttribute("msg", hantei.judge(you));
+		model.addAttribute("cpu",hantei.getCpu());
+		model.addAttribute("you",hantei.getYou());
+		jankenuser.setRound(hantei.getRound());;
+		jankenuser.setWin(hantei.getWin());
+		jankenuser.setLose(hantei.getLose());
+		jankenuser.setDraw(hantei.getDraw());
+		rep.save(jankenuser);
+		model.addAttribute("jankenuser", jankenuser);
+		return "janken";
 	}
-
-
 }
